@@ -20,7 +20,7 @@ export interface JavaRelease {
   downloadUrl:    string;      // direct link to the archive
   checksumUrl:    string;      // sha256 link
   arch:          string;      // e.g. "x64", "aarch64"
-  os:            string;      // e.g. "windows", "linux", "mac
+  os:            string;      // e.g. "windows", "linux", "mac"
   [key: string]: string | number;
 }
 
@@ -38,7 +38,7 @@ const ADOPTIUM_ARCH_MAP: Record<string, string | undefined> = {
     x86_64: 'x64',
     arm64: 'aarch64',
 };
-/** Converts Node’s process.platform/arch into Adoptium names. */
+/** Converts Node's process.platform/arch into Adoptium names. */
 function adoptiumNames() {
   const platformMap: Record<string, string> = {
     win32: 'windows',
@@ -172,7 +172,7 @@ async function _downloadJavaRelease(
   release: JavaRelease,
   fileName?: string,
   onComplete?: (data: any) => void
-): Promise<string> {
+): Promise<any> {
   const response = await fetch(release.downloadUrl);
   if (!response.ok) {
     throw new Error(`Failed to download Java release: ${response.statusText}`);
@@ -189,7 +189,7 @@ async function _downloadJavaRelease(
 async function _decompressJavaRelease(
   filePath: string,
   unpackPath?: string
-): Promise<string> {
+): Promise<any> {
   const result = await taskManager.unpack(filePath, {
     destination: unpackPath
   });
